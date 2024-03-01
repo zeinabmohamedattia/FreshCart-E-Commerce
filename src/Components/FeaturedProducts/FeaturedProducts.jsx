@@ -14,10 +14,10 @@ export default function FeaturedProducts() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [cart, setCart] = useState(null)
-  let { getCartItems, setCartCount, addToCart } = useContext(CartContext)
+  let { getCartItems, setCartCount, addToCart, cartCount } = useContext(CartContext)
   const [wishList, setWishList] = useState([])
   const [clickedButtons, setClickedButtons] = useState([]);
-  let { addTowishList, setWishListCount, deletewishListItems, getwishListItems  } = useContext(WishListContext)
+  let { addTowishList, setWishListCount, deletewishListItems, getwishListItems, wishListCount } = useContext(WishListContext)
 
   const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -34,29 +34,45 @@ export default function FeaturedProducts() {
     }
   };
   async function getProducts() {
-    setLoading(true)
+    // setLoading(true)
     let { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
     setProducts(data?.data)
     setSearchResults(data?.data)
     setLoading(false)
   }
   async function getItems() {
+    setLoading(true)
     let { data } = await getCartItems()
-    if (!data) {
-
-      setCart(null)
-      setCartCount(0)
-    } else {
-      setCart(data)
-      setCartCount(data.numOfCartItems)
+    if (data?.status === 'success') {
+      
+      setCart(data?.data)
+      setCartCount(data?.numOfCartItems)
+      console.log(data)
     }
-  }
-  useEffect(() => {
-    getList()
-    getProducts()
     
+setLoading(false)
+  }
+
+  async function getList() {
+    setLoading(true)
+    let { data } = await getwishListItems()
+    console.log(data)
+    setWishList(data.data)
+    setWishListCount(data?.count)
+    let clicked = data.data.map(item => item._id)
+    setClickedButtons(clicked)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+     
+    getList()
+   
+    getProducts()
     getItems()
+
   }, []);
+  
 
   const handleClick = (buttonId) => {
     if (clickedButtons.includes(buttonId)) {
@@ -80,7 +96,7 @@ export default function FeaturedProducts() {
   }, [clickedButtons, searchTerm]);
 
   async function postToCart(id) {
-
+setLoading(true)
     let { data } = await addToCart(id)
 
     if (data?.status === 'success') {
@@ -90,19 +106,11 @@ export default function FeaturedProducts() {
       })
 
     }
-  }
-
-  
-  async function getList() {
-setLoading(true)
-    let { data } = await getwishListItems()
-    setWishList(data.data)
-    setWishListCount(data?.count)
-
-    let clicked = data.data.map(item => item._id)
-    setClickedButtons(clicked)
     setLoading(false)
   }
+
+
+  
 
   async function postTowishList(id) {
     let { data } = await addTowishList(id)

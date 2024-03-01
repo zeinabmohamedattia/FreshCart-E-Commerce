@@ -28,11 +28,10 @@ export default function ResetPassword() {
 
     setLoading(false)
     localStorage.setItem('userToken', data.token)
-    localStorage.setItem('userEmail', data.user.email)
-
+    // localStorage.setItem('userEmail', data.user.email)
     setUserToken(data.token)
     setUserData(data.user)
-    navigate('/')
+    navigate('/login')
   }
 
   let formik = useFormik({

@@ -14,13 +14,14 @@ export default function Navbar() {
   let { getwishListItems, wishListCount, setWishListCount } = useContext(WishListContext)
   const [cart, setCart] = useState(null)
   const [wishList, setWishList] = useState(null)
- 
+  let { userToken, setUserToken } = useContext(UserContext)
+  let navigate = useNavigate();
+
   async function getWishList() {
 
     let { data } = await getwishListItems()
     if (!data) {
       setWishListCount(0)
-
     } else {
       setWishList(data)
       setWishListCount(data?.count)
@@ -31,11 +32,12 @@ export default function Navbar() {
 
     let { data } = await getCartItems()
     if (!data) {
+      
       setCartCount(0) 
 
     } else {
      setCart(data)
-    setCartCount(data.numOfCartItems) 
+    setCartCount(data?.numOfCartItems) 
      }
   }
   useEffect(() => {
@@ -43,8 +45,7 @@ export default function Navbar() {
     getCart()
     getWishList()
   }, [])
-  let { userToken, setUserToken } = useContext(UserContext)
-  let navigate = useNavigate();
+
   function logOut() {
     localStorage.removeItem('userToken')
     localStorage.removeItem('userEmail')

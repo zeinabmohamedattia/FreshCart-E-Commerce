@@ -19,12 +19,13 @@ export default function Login() {
         setLoading(false)
       })
     if (data.message === 'success') {
-      setLoading(false)
+     
       localStorage.setItem('userToken', data.token)
       localStorage.setItem('userEmail', data.user.email)
       setUserToken(data.token)
       setUserData(data.user)
       navigate('/')
+       setLoading(false)
     }
   }
   // Yup Validation

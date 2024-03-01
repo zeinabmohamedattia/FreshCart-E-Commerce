@@ -56,6 +56,7 @@ export default function Products() {
   useEffect(() => {
     searchProducts();
   }, [clickedButtons, searchTerm]);
+  
   async function getList() {
 setLoading(true)
     let { data } = await getwishListItems()
