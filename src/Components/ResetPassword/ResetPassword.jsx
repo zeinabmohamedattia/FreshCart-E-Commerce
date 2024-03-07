@@ -28,8 +28,7 @@ export default function ResetPassword() {
 
     setLoading(false)
     localStorage.setItem('userToken', data.token)
-    // localStorage.setItem('userEmail', data.user.email)
-    // 
+
     setUserToken(data.token)
     setUserData(data.user)
     console.log(data.user)

@@ -102,6 +102,7 @@ export default function Navbar() {
                 <Link className="nav-link position-relative d-flex align-items-center  justify-content-center" to="/cart">
                   <i className="fa fa-cart-shopping fa-2x "></i>
                   <span className='position-absolute bg-main  notification d-flex align-items-center justify-content-center top-0 end-0  font-sm  text-white p-2 rounded-circle'>{cartCount}</span>
+
                 </Link>
               </li>
               <li className="nav-item">

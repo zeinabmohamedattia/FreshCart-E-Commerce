@@ -11,7 +11,7 @@ export default function CartContextProvider(props) {
     const [cartCount, setCartCount] = useState(null)
 
     function addToCart(productId) {
-        return axios.post(`https://ecommerce.routemisr.com/api/v1/carty`, {
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/cart`, {
             productId
         }, {
             headers
@@ -24,7 +24,7 @@ export default function CartContextProvider(props) {
             .catch((err) => err)
     }
     function checkOutSession(cartId, shippingAddress) {
-        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:3000`, {
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=https://zeinabmohamedattia.github.io`, {
             shippingAddress
         }, {
             headers
