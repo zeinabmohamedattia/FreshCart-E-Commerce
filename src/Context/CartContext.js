@@ -16,11 +16,7 @@ export default function CartContextProvider(props) {
         }, {
             headers
         })
-            .then((response) => {
-                setCartCount(response.data.numOfCartItems)
-                console.log(response.data.numOfCartItems)
-                return response
-            })
+            .then((response) =>response)
             .catch((err) => err)
     }
     function checkOutSession(cartId, shippingAddress) {
@@ -36,11 +32,7 @@ export default function CartContextProvider(props) {
         return axios.get(`https://ecommerce.routemisr.com/api/v1/cart`, {
             headers
         })
-           .then((response) => {
-                setCartCount(response.data.numOfCartItems)
-                console.log(response.data.numOfCartItems)
-                return response
-            })
+           .then((response) => response)
             .catch((err) => err)
     }
     function deleteCartItems(productId) {
